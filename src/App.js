@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './Home.js'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Create from './Create';
+import Navbar from './Navbar';
+import BlogDetails from './BlogDetails'
+import UrlNotFound from './UrlNotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar/>
+        <header className="App-header">
+          <Routes>
+          <Route exact path = '/' element = {<Home/>}/>
+          <Route path = '/create' element = {<Create/>} />
+          <Route path = '/blogs/:id' element = {<BlogDetails/>} />
+          <Route path = '*' element = {<UrlNotFound/>} />
+          {/* this * goes in the bottom coz we need to render all the urls with the element "UrlNotFound" for that we first need
+          to check all the route paths, only if the specified route path doesn't match, for example '/xyzsdj' route path '*' 
+          gets executed      */}
+          </Routes>
+        </header>
+      </div>
+    </Router>
   );
 }
 
